@@ -1,0 +1,34 @@
+type Query {
+    getPerson(id: Int!): Person
+    allPeople: [Person]
+}
+
+type Person {
+    id: Int!
+    name: String!
+    age: Int!
+    email: String!
+    accounts: [Account]
+}
+
+type Mutation {
+    createPerson(name: String!, age: Int!, email: String!): Person
+    updatePerson(id: Int!, name: String, age: Int, email: String): Person
+    deletePerson(id: Int!): Boolean
+}
+
+type Account {
+    id: Int!                # Unique identifier for the account
+    number: String!       # Account number
+    balance: Float!       # Account balance
+    owner: Person         # Owner of the account
+    cards: [Card!]!       # List of cards associated with the account
+}
+
+type Card {
+    id: Int!
+    number: Int!
+    cvc: Int!
+    endDate: String!
+    account: Account!
+}

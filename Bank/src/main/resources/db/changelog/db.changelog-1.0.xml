@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1.0.0" author="AFilonov">
+        <createTable tableName="people">
+            <column name="name" type="VARCHAR">
+                <constraints unique="false" nullable="false"/>
+            </column>
+            <column name="age" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR">
+                <constraints unique="true" nullable="false"/>
+            </column>
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.1" author="AFilonov">
+        <createTable tableName="accounts">
+            <column name="number" type="VARCHAR">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="balance" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="person_id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.2" author="AFilonov">
+        <createTable tableName="cards">
+            <column name="number" type="NUMERIC">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="cvc" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.3" author="AFilonov">
+        <insert tableName="people">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="name" value="Alex"/>
+            <column name="age" valueNumeric="30"/>
+            <column name="email" value="alex30@gmail.com"/>
+        </insert>
+        <insert tableName="people">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="name" value="ivan"/>
+            <column name="age" valueNumeric="27"/>
+            <column name="email" value="ivan27@gmail.com"/>
+        </insert>
+        <insert tableName="people">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="name" value="Max"/>
+            <column name="age" valueNumeric="31"/>
+            <column name="email" value="max31@gmail.com"/>
+        </insert>
+        <insert tableName="people">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="name" value="Vlad"/>
+            <column name="age" valueNumeric="37"/>
+            <column name="email" value="vlad37@gmail.com"/>
+        </insert>
+        <insert tableName="people">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="name" value="Marsel"/>
+            <column name="age" valueNumeric="22"/>
+            <column name="email" value="marsel22@gmail.com"/>
+        </insert>
+        <insert tableName="people">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="name" value="Oleg"/>
+            <column name="age" valueNumeric="24"/>
+            <column name="email" value="oleg24@gmail.com"/>
+        </insert>
+        <insert tableName="people">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="name" value="Elena"/>
+            <column name="age" valueNumeric="19"/>
+            <column name="email" value="elena19@gmail.com"/>
+        </insert>
+
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000000"/>
+            <column name="balance" valueNumeric="100.0"/>
+            <column name="person_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000001"/>
+            <column name="balance" valueNumeric="100.0"/>
+            <column name="person_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000002"/>
+            <column name="balance" valueNumeric="100.0"/>
+            <column name="person_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000003"/>
+            <column name="balance" valueNumeric="200.0"/>
+            <column name="person_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000004"/>
+            <column name="balance" valueNumeric="200.0"/>
+            <column name="person_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000005"/>
+            <column name="balance" valueNumeric="300.0"/>
+            <column name="person_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000006"/>
+            <column name="balance" valueNumeric="400.0"/>
+            <column name="person_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000007"/>
+            <column name="balance" valueNumeric="500.0"/>
+            <column name="person_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000008"/>
+            <column name="balance" valueNumeric="600.0"/>
+            <column name="person_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="40817810238100000009"/>
+            <column name="balance" valueNumeric="700.0"/>
+            <column name="person_id" valueNumeric="7"/>
+        </insert>
+
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208580"/>
+            <column name="cvc" valueNumeric="111"/>
+            <column name="end_date" valueDate="2029-09-21 00:00:00"/>
+            <column name="account_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208581"/>
+            <column name="cvc" valueNumeric="112"/>
+            <column name="end_date" valueDate="2029-09-21 00:00:00"/>
+            <column name="account_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208582"/>
+            <column name="cvc" valueNumeric="113"/>
+            <column name="end_date" valueDate="2029-09-21 00:00:00"/>
+            <column name="account_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050222220208583"/>
+            <column name="cvc" valueNumeric="121"/>
+            <column name="end_date" valueDate="2029-07-11 00:00:00"/>
+            <column name="account_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208584"/>
+            <column name="cvc" valueNumeric="122"/>
+            <column name="end_date" valueDate="2029-01-19 00:00:00"/>
+            <column name="account_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208590"/>
+            <column name="cvc" valueNumeric="131"/>
+            <column name="end_date" valueDate="2029-01-19 00:00:00"/>
+            <column name="account_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208591"/>
+            <column name="cvc" valueNumeric="132"/>
+            <column name="end_date" valueDate="2029-01-19 00:00:00"/>
+            <column name="account_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208592"/>
+            <column name="cvc" valueNumeric="133"/>
+            <column name="end_date" valueDate="2029-01-19 00:00:00"/>
+            <column name="account_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208691"/>
+            <column name="cvc" valueNumeric="142"/>
+            <column name="end_date" valueDate="2028-05-05 00:00:00"/>
+            <column name="account_id" valueNumeric="7"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120208692"/>
+            <column name="cvc" valueNumeric="143"/>
+            <column name="end_date" valueDate="2025-04-05 00:00:00"/>
+            <column name="account_id" valueNumeric="7"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="number" value="4050111120209692"/>
+            <column name="cvc" valueNumeric="777"/>
+            <column name="end_date" valueDate="2025-05-20 00:00:00"/>
+            <column name="account_id" valueNumeric="8"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

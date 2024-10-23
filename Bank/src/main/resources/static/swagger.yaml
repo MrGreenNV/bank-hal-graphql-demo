@@ -1,0 +1,407 @@
+openapi: 3.0.0
+info:
+  title: Bank
+  description: Backend-сервис и модель данных для банка
+  contact:
+    name: AFilonov
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:9595/
+    description: Локальный  сервер для управления банком.
+
+components:
+
+  schemas:
+    Person:
+      description: Данные для создания пользователя.
+      type: object
+      properties:
+        name:
+          type: string
+          description: Имя пользователя.
+          example: user_name
+        age:
+          type: numeric
+          description: Возраст пользователя.
+          example: 25
+        email:
+          type: string
+          description: Email пользователя.
+          example: user_name@mail.ru
+
+    Account:
+      description: Данные для создания счета.
+      type: object
+      properties:
+        number:
+          type: string
+          description: Номер счета.
+          example: 40817810238100000000
+        balance:
+          type: numeric
+          description: Баланс счета.
+          example: 250,00
+        owner:
+          type: object
+          description: Владелец счета.
+          $ref: '#/components/schemas/Person'
+
+    Card:
+      description: Данные для создания карты.
+      type: object
+      properties:
+        number:
+          type: string
+          description: Номер карты.
+          example: 4050111120208580
+        cvc:
+          type: numeric
+          description: CVC код.
+          example: 121
+        endDate:
+          type: timestamp
+          description: Дата окончания действия карты.
+          example: 2029-09-20T21:00:00.000+00:00
+        owner:
+          type: object
+          description: Привязка к счету.
+          $ref: '#/components/schemas/Account'
+
+paths:
+
+  /people:
+    post:
+      tags:
+        - PeopleController
+      summary: Создание нового пользователя.
+      requestBody:
+        required: true
+        description: Данные для создания нового пользователя.
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: Пользователь успешно создан.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Person'
+    get:
+      tags:
+        - PeopleController
+      summary: Возвращает список пользователей
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Номер отображаемой страницы.
+          example: 1
+        - in: path
+          name: size
+          schema:
+            type: integer
+          required: false
+          description: Количество отображаемых элементов на странице.
+          example: 10
+      responses:
+        '200':
+          description: Список всех пользователей.
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+
+  /people/{id}:
+    put:
+      tags:
+        - PeopleController
+      summary: Редактирование пользователя
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id обновляемого пользователя.
+          example: 1
+      requestBody:
+        required: true
+        description: Данные для обновления пользователя.
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: Обновлённый пользователь.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Person'
+
+    get:
+      tags:
+        - PeopleController
+      summary: Отображение пользователя
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id запрашиваемого пользователя.
+          example: 1
+      responses:
+        '200':
+          description: Запрашиваемый пользователь.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Person'
+
+    delete:
+      tags:
+        - PeopleController
+      summary: Удаление пользователя
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id удаляемого пользователя.
+          example: 1
+      responses:
+        '200':
+          description: Пользователь успешно удален.
+
+  /accounts:
+    post:
+      tags:
+        - AccountsController
+      summary: Создание нового счета.
+      requestBody:
+        required: true
+        description: Данные для создания нового счета.
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Счет успешно создан.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    get:
+      tags:
+        - AccountsController
+      summary: Возвращает список счетов
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Номер отображаемой страницы.
+          example: 1
+        - in: path
+          name: size
+          schema:
+            type: integer
+          required: false
+          description: Количество отображаемых элементов на странице.
+          example: 10
+      responses:
+        '200':
+          description: Список всех счетов.
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+
+  /accounts/{id}:
+    put:
+      tags:
+        - AccountsController
+      summary: Редактирование счета
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id обновляемого счета.
+          example: 1
+      requestBody:
+        required: true
+        description: Данные для обновления счета.
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Обновлённый счет.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
+    get:
+      tags:
+        - AccountsController
+      summary: Отображение счета
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id запрашиваемого счета.
+          example: 1
+      responses:
+        '200':
+          description: Запрашиваемый счет.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
+    delete:
+      tags:
+        - AccountsController
+      summary: Удаление счета
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id удаляемого счета.
+          example: 1
+      responses:
+        '200':
+          description: Счет успешно удален.
+
+  /cards:
+    post:
+      tags:
+        - CardsController
+      summary: Создание новой карты.
+      requestBody:
+        required: true
+        description: Данные для создания новой карты.
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Card'
+      responses:
+        '200':
+          description: Карта успешно создана.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Card'
+    get:
+      tags:
+        - CardsController
+      summary: Возвращает список карт.
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Номер отображаемой карты.
+          example: 1
+        - in: path
+          name: size
+          schema:
+            type: integer
+          required: false
+          description: Количество отображаемых элементов на странице.
+          example: 10
+      responses:
+        '200':
+          description: Список всех карт.
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+
+  /cards/{id}:
+    put:
+      tags:
+        - CardsController
+      summary: Редактирование карты.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id обновляемой карты.
+          example: 1
+      requestBody:
+        required: true
+        description: Данные для обновления карты.
+        content:
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Card'
+      responses:
+        '200':
+          description: Обновлённая карта.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Card'
+
+    get:
+      tags:
+        - CardsController
+      summary: Отображение карты
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id запрашиваемого карты.
+          example: 1
+      responses:
+        '200':
+          description: Запрашиваемая карта.
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Card'
+
+    delete:
+      tags:
+        - CardsController
+      summary: Удаление карты.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id удаляемой карты.
+          example: 1
+      responses:
+        '200':
+          description: Карта успешно удалена.
