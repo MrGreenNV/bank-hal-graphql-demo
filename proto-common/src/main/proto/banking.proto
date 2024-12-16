@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ru.afilonov.report;
+
+service BankingService {
+  rpc Report(ReportRequest) returns (ReportResponse);
+}
+
+message ReportRequest {
+  int64 person_id = 1;
+}
+
+message ReportResponse {
+  string report_url = 1;
+}
